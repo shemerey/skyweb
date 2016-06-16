@@ -36,7 +36,7 @@ export class MessageService {
         });
     }
 
-    public getConversations(skypeAccount:SkypeAccount,callback:(convos:any[]) => void) {
+    public getConversations(skypeAccount:SkypeAccount,callback:(convos:IConversation[]) => void) {
 
         this.requestWithJar.get(Consts.SKYPEWEB_HTTPS + skypeAccount.messagesHost + '/v1/users/ME/conversations/', {
             headers: {
