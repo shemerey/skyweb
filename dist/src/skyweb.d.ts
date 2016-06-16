@@ -1,8 +1,9 @@
+/// <reference path="../../typings/index.d.ts" />
 import SkypeAccount from './skype_account';
 import ContactsService from './contacts_service';
 import Status from "./status/status";
 import { Promise } from "es6-promise";
-export declare class Skyweb {
+export default class Skyweb {
     messagesCallback: (messages: Array<any>) => void;
     authRequestCallback: (messages: Array<any>) => void;
     skypeAccount: SkypeAccount;

@@ -11,7 +11,6 @@
     "node": "registry:dt/node#4.0.0+20160501135006"
   },
   "files": [
-    "typings/index.d.ts",
     "src/skyweb.ts",
     "src/login.ts",
     "src/interfaces.ts",
