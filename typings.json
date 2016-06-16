@@ -6,7 +6,7 @@
     "form-data": "registry:npm/form-data#1.0.0+20160211003958",
     "request": "registry:npm/request#2.69.0+20160428223725"
   },
-  "ambientDependencies": {
+  "globalDependencies": {
     "node": "registry:dt/node#4.0.0+20160501135006"
   }
 }

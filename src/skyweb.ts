@@ -12,7 +12,7 @@ import RequestService from "./request_service";
 import Status from "./status/status";
 import {Promise} from "es6-promise";
 
-class Skyweb {
+export class Skyweb {
     public messagesCallback:(messages:Array<any>)=>void;
     public authRequestCallback:(messages:Array<any>)=>void;
     public skypeAccount:SkypeAccount;
@@ -68,7 +68,3 @@ class Skyweb {
         return this.requestService.decline(this.skypeAccount, username);
     }
 }
-
-exports = Skyweb;
-exports.Skyweb = Skyweb;
-export default Skyweb;
