@@ -15,7 +15,7 @@ export class MessageService {
     }
 
     public getThreadInfo(skypeAccount:SkypeAccount,threadID:string,callback:(threadInfo:ThreadInfo) => void) {
-        this.requestWithJar.get(Consts.SKYPEWEB_HTTPS + skypeAccount.messagesHost + '/v1/threads/', {
+        this.requestWithJar.get(Consts.SKYPEWEB_HTTPS + skypeAccount.messagesHost + '/v1/threads/' + encodeURIComponent(threadID), {
             headers: {
                 'RegistrationToken': skypeAccount.registrationTokenParams.raw
             },
@@ -43,7 +43,6 @@ export class MessageService {
                 'RegistrationToken': skypeAccount.registrationTokenParams.raw
             },
             qs: {
-                'starttime': Utils.getCurrentTime(),
                 'pageSize': 100,
                 'targetType': "Passport|Skype|Lync|Thread|PSTN|Agent",
                 "view": "msnp24Equivalent"

@@ -7,7 +7,7 @@ var MessageService = (function () {
         this.requestWithJar = request.defaults({ jar: cookieJar });
     }
     MessageService.prototype.getThreadInfo = function (skypeAccount, threadID, callback) {
-        this.requestWithJar.get(Consts.SKYPEWEB_HTTPS + skypeAccount.messagesHost + '/v1/threads/', {
+        this.requestWithJar.get(Consts.SKYPEWEB_HTTPS + skypeAccount.messagesHost + '/v1/threads/' + encodeURIComponent(threadID), {
             headers: {
                 'RegistrationToken': skypeAccount.registrationTokenParams.raw
             },
@@ -33,7 +33,6 @@ var MessageService = (function () {
                 'RegistrationToken': skypeAccount.registrationTokenParams.raw
             },
             qs: {
-                'starttime': utils_1.default.getCurrentTime(),
                 'pageSize': 100,
                 'targetType': "Passport|Skype|Lync|Thread|PSTN|Agent",
                 "view": "msnp24Equivalent"
