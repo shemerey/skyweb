@@ -11,8 +11,6 @@
     "node": "registry:dt/node#4.0.0+20160501135006"
   },
   "files": [
-    "dist/src/skyweb.d.ts",
-    "typings/index.d.ts",
-    "manual_typings/js-sha256.ts"
+    "./dist/src/skyweb.d.ts"
   ]
 }
