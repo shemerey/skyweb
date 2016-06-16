@@ -12,6 +12,7 @@
   },
   "files": [
     "dist/src/skyweb.d.ts",
-    "typings/index.d.ts"
+    "typings/index.d.ts",
+    "manual_typings/js-sha256.ts"
   ]
 }
