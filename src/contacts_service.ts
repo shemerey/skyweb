@@ -5,8 +5,10 @@ import Utils from './utils';
 import * as http from 'http';
 import {CookieJar} from "request";
 
+import {IContact} from "./interfaces";
+
 export class ContactsService {
-    public contacts:Array<{}>;
+    public contacts:IContact[];
     private requestWithJar: any;
 
     constructor(cookieJar:CookieJar) {

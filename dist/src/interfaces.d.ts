@@ -29,3 +29,7 @@ export interface ThreadInfo {
     version: number;
     messages: string;
 }
+export interface IContact {
+    id: string;
+    display_name: string;
+}

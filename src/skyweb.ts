@@ -19,7 +19,7 @@ export class Skyweb {
     public authRequestCallback:(messages:Array<any>)=>void;
     public skypeAccount:SkypeAccount;
     public contactsService:ContactsService;
-    private messageService:MessageService;
+    public messageService:MessageService;
     private requestService:RequestService;
     private statusService:StatusService;
     /**

@@ -32,3 +32,8 @@ export interface ThreadInfo {
     version:number;
     messages:string; // some url
 }
+
+export interface IContact {// todo: populate
+    id:string;
+    display_name:string;
+}
