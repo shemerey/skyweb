@@ -1,4 +1,5 @@
 {
+  "name": "skyweb-revised",
   "dependencies": {
     "big-integer": "registry:npm/big-integer#1.6.15+20160501004755",
     "cheerio": "registry:npm/cheerio#0.20.0+20160422172414",
