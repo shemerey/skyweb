@@ -8,7 +8,7 @@
     "request": "registry:npm/request#2.69.0+20160428223725"
   },
   "globalDependencies": {
-    "node": "registry:dt/node#4.0.0+20160501135006"
+    "node": "registry:dt/node#6.0.0+20161019125345"
   },
   "files": [
     "./dist/src/skyweb.d.ts"
