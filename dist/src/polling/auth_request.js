@@ -1,6 +1,6 @@
 "use strict";
-var request = require('request');
-var Consts = require('./../consts');
+var request = require("request");
+var Consts = require("./../consts");
 var utils_1 = require("./../utils");
 var AuthRequest = (function () {
     function AuthRequest(cookieJar) {

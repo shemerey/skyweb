@@ -1,7 +1,7 @@
 "use strict";
-var request = require('request');
-var Consts = require('./consts');
-var utils_1 = require('./utils');
+var request = require("request");
+var Consts = require("./consts");
+var utils_1 = require("./utils");
 var MessageService = (function () {
     function MessageService(cookieJar) {
         this.requestWithJar = request.defaults({ jar: cookieJar });
@@ -33,29 +33,14 @@ var MessageService = (function () {
                 'RegistrationToken': skypeAccount.registrationTokenParams.raw
             },
             qs: {
-                'pageSize': 100,
+                'pageSize': 200,
                 'targetType': "Passport|Skype|Lync|Thread|PSTN|Agent",
                 "view": "msnp24Equivalent"
             }
         }, function (error, response, body) {
             if (!error && response.statusCode === 200) {
                 var json = JSON.parse(body);
-                var convos = [];
-                for (var i = 0; i < json.conversations.length; i++) {
-                    var convo = json.conversations[i];
-                    if (convo.threadProperties) {
-                        convos[convos.length] = {
-                            name: convo.threadProperties.topic,
-                            id: convo.id
-                        };
-                    }
-                    else {
-                        convos[convos.length] = {
-                            id: convo.id
-                        };
-                    }
-                }
-                callback(convos);
+                callback(json.conversations);
             }
             else {
                 utils_1.default.throwError('Failed to send message.' +
