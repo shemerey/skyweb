@@ -61,6 +61,31 @@ export class MessageService {
         });
     }
 
+    public fetchHistory(skypeAccount:SkypeAccount, conversationId:string, callback:(messages:any) => void) {
+        this.requestWithJar.get(Consts.SKYPEWEB_HTTPS + skypeAccount.messagesHost + '/v1/users/ME/conversations/' + conversationId + '/messages', {
+            headers: {
+                'RegistrationToken': skypeAccount.registrationTokenParams.raw
+            },
+            qs: {
+                'startTime': 0,
+                 'pageSize': 51,
+                 'view': 'msnp24Equivalent|supportsMessageProperties',
+                 'targetType': 'Passport|Skype|Lync|Thread|PSTN',
+            }
+        }, (error:any, response:http.IncomingMessage, body:any) => {
+            if (!error && response.statusCode === 200) {
+              let json = JSON.parse(body);
+              callback(json.messages);
+            } else {
+                Utils.throwError('Failed to send message.' +
+                    '.\n Error code: ' + response.statusCode +
+                    '.\n Error: ' + error +
+                    '.\n Body: ' + body
+                );
+            }
+        });
+    }
+
     public sendMessage(skypeAccount:SkypeAccount, conversationId:string, message:string, messagetype?:string, contenttype?:string) {
         var requestBody = JSON.stringify({
             ///'clientmessageid': Utils.getCurrentTime() + '', //fixme looks like we don't need this?(at least if we don't want to

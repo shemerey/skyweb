@@ -42,6 +42,9 @@ var Skyweb = (function () {
     Skyweb.prototype.getConversations = function (callback) {
         this.messageService.getConversations(this.skypeAccount, callback);
     };
+    Skyweb.prototype.fetchHistory = function (conversationId, callback) {
+        this.messageService.fetchHistory(this.skypeAccount, conversationId, callback);
+    };
     Skyweb.prototype.sendMessage = function (conversationId, message, messagetype, contenttype) {
         this.messageService.sendMessage(this.skypeAccount, conversationId, message, messagetype, contenttype);
     };

@@ -50,6 +50,30 @@ var MessageService = (function () {
             }
         });
     };
+    MessageService.prototype.fetchHistory = function (skypeAccount, conversationId, callback) {
+        this.requestWithJar.get(Consts.SKYPEWEB_HTTPS + skypeAccount.messagesHost + '/v1/users/ME/conversations/' + conversationId + '/messages', {
+            headers: {
+                'RegistrationToken': skypeAccount.registrationTokenParams.raw
+            },
+            qs: {
+                'startTime': 0,
+                'pageSize': 51,
+                'view': 'msnp24Equivalent|supportsMessageProperties',
+                'targetType': 'Passport|Skype|Lync|Thread|PSTN',
+            }
+        }, function (error, response, body) {
+            if (!error && response.statusCode === 200) {
+                var json = JSON.parse(body);
+                callback(json.messages);
+            }
+            else {
+                utils_1.default.throwError('Failed to send message.' +
+                    '.\n Error code: ' + response.statusCode +
+                    '.\n Error: ' + error +
+                    '.\n Body: ' + body);
+            }
+        });
+    };
     MessageService.prototype.sendMessage = function (skypeAccount, conversationId, message, messagetype, contenttype) {
         var requestBody = JSON.stringify({
             'content': message,
