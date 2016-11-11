@@ -1,7 +1,7 @@
 "use strict";
-var request = require('request');
-var Consts = require('./consts');
-var utils_1 = require('./utils');
+var request = require("request");
+var Consts = require("./consts");
+var utils_1 = require("./utils");
 var MessageService = (function () {
     function MessageService(cookieJar) {
         this.requestWithJar = request.defaults({ jar: cookieJar });
@@ -33,29 +33,38 @@ var MessageService = (function () {
                 'RegistrationToken': skypeAccount.registrationTokenParams.raw
             },
             qs: {
-                'pageSize': 100,
+                'pageSize': 10,
                 'targetType': "Passport|Skype|Lync|Thread|PSTN|Agent",
                 "view": "msnp24Equivalent"
             }
         }, function (error, response, body) {
             if (!error && response.statusCode === 200) {
                 var json = JSON.parse(body);
-                var convos = [];
-                for (var i = 0; i < json.conversations.length; i++) {
-                    var convo = json.conversations[i];
-                    if (convo.threadProperties) {
-                        convos[convos.length] = {
-                            name: convo.threadProperties.topic,
-                            id: convo.id
-                        };
-                    }
-                    else {
-                        convos[convos.length] = {
-                            id: convo.id
-                        };
-                    }
-                }
-                callback(convos);
+                callback(json.conversations);
+            }
+            else {
+                utils_1.default.throwError('Failed to send message.' +
+                    '.\n Error code: ' + response.statusCode +
+                    '.\n Error: ' + error +
+                    '.\n Body: ' + body);
+            }
+        });
+    };
+    MessageService.prototype.fetchHistory = function (skypeAccount, conversationId, callback) {
+        this.requestWithJar.get(Consts.SKYPEWEB_HTTPS + skypeAccount.messagesHost + '/v1/users/ME/conversations/' + conversationId + '/messages', {
+            headers: {
+                'RegistrationToken': skypeAccount.registrationTokenParams.raw
+            },
+            qs: {
+                'startTime': 0,
+                'pageSize': 51,
+                'view': 'msnp24Equivalent|supportsMessageProperties',
+                'targetType': 'Passport|Skype|Lync|Thread|PSTN',
+            }
+        }, function (error, response, body) {
+            if (!error && response.statusCode === 200) {
+                var json = JSON.parse(body);
+                callback(json.messages);
             }
             else {
                 utils_1.default.throwError('Failed to send message.' +

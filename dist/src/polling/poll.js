@@ -1,6 +1,6 @@
 "use strict";
-var request = require('request');
-var Consts = require('./../consts');
+var request = require("request");
+var Consts = require("./../consts");
 var utils_1 = require("./../utils");
 var login_1 = require("../login");
 var Poll = (function () {
@@ -36,9 +36,7 @@ var Poll = (function () {
     };
     Poll.parsePollResult = function (pollResult, messagesCallback) {
         if (pollResult.eventMessages) {
-            var messages = pollResult.eventMessages.filter(function (item) {
-                return item.resourceType === 'NewMessage';
-            });
+            var messages = pollResult.eventMessages;
             if (messages.length) {
                 messagesCallback(messages);
             }

@@ -44,9 +44,7 @@ export class Poll {
 
     private static parsePollResult(pollResult:any, messagesCallback:(messages:Array<any>)=>void) {
         if (pollResult.eventMessages) {
-            var messages = pollResult.eventMessages.filter((item: any) => {
-                return item.resourceType === 'NewMessage'; //Fixme there are a lot more EventMessage's types!
-            });
+            var messages = pollResult.eventMessages
             if (messages.length) {
                 messagesCallback(messages);
             }

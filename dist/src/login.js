@@ -1,9 +1,9 @@
 "use strict";
-var request = require('request');
-var cheerio = require('cheerio');
-var utils_1 = require('./utils');
-var Consts = require('./consts');
-var url = require('url');
+var request = require("request");
+var cheerio = require("cheerio");
+var utils_1 = require("./utils");
+var Consts = require("./consts");
+var url = require("url");
 var es6_promise_1 = require("es6-promise");
 var rejectWithError = function (reject, error) {
     utils_1.default.throwError(error);
@@ -45,7 +45,7 @@ var Login = (function () {
                 _this.requestWithJar.post(postParams, function (error, response, body) {
                     if (!error && response.statusCode == 200) {
                         var $ = cheerio.load(body);
-                        var t = $('input[name="t"]').val();
+                        var t = $('input[name="t"], input[name="ipt"]').val();
                         if (!t) {
                             rejectWithError(reject, 'Failed to find t inside.');
                         }
@@ -204,7 +204,7 @@ var Login = (function () {
         });
     };
     Login.prototype.getSelfDisplayName = function (skypeAccout, resolve, reject) {
-        this.requestWithJar.get(Consts.SKYPEWEB_HTTPS + Consts.SKYPEWEB_API_SKYPE_HOST + Consts.SKYPEWEB_SELF_DISPLAYNAME_URL, {
+        this.requestWithJar.get(Consts.SKYPEWEB_HTTPS + Consts.SKYPEWEB_API_SKYPE_HOST + Consts.SKYPEWEB_SELF_PROFILE_URL, {
             headers: {
                 'X-Skypetoken': skypeAccout.skypeToken
             }

@@ -59,7 +59,7 @@ export class Login {
                     if (!error && response.statusCode == 200) {
                         var $ = cheerio.load(body);
                         //we need this magic t
-                        var t = $('input[name="t"]').val();
+                        var t = $('input[name="t"], input[name="ipt"]').val();
                         if (!t) {
                             rejectWithError(reject, 'Failed to find t inside.');
                         }
@@ -226,7 +226,7 @@ export class Login {
     }
 
     private getSelfDisplayName(skypeAccout: SkypeAccount, resolve: any, reject: any) {
-        this.requestWithJar.get(Consts.SKYPEWEB_HTTPS + Consts.SKYPEWEB_API_SKYPE_HOST + Consts.SKYPEWEB_SELF_DISPLAYNAME_URL, {
+        this.requestWithJar.get(Consts.SKYPEWEB_HTTPS + Consts.SKYPEWEB_API_SKYPE_HOST + Consts.SKYPEWEB_SELF_PROFILE_URL, {
             headers: {
                 'X-Skypetoken': skypeAccout.skypeToken
             }

@@ -15,6 +15,9 @@ export declare class Skyweb {
     private cookieJar;
     constructor();
     login(username: any, password: any): Promise<{}>;
+    getThreadInfo(threadID: string, callback: (thread: Object) => void): void;
+    getConversations(callback: (convos: Array<any>) => void): void;
+    fetchHistory(conversationId: string, callback: (messages: Array<any>) => void): void;
     sendMessage(conversationId: string, message: string, messagetype?: string, contenttype?: string): void;
     setStatus(status: Status): void;
     acceptAuthRequest(username: any): void;

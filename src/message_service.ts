@@ -14,7 +14,7 @@ export class MessageService {
         this.requestWithJar = request.defaults({jar: cookieJar});
     }
 
-    public getThreadInfo(skypeAccount:SkypeAccount,threadID:string,callback:(threadInfo:ThreadInfo) => void) {
+    public getThreadInfo(skypeAccount:SkypeAccount, threadID:string, callback:(threadInfo: any) => void) {
         this.requestWithJar.get(Consts.SKYPEWEB_HTTPS + skypeAccount.messagesHost + '/v1/threads/' + encodeURIComponent(threadID), {
             headers: {
                 'RegistrationToken': skypeAccount.registrationTokenParams.raw
@@ -36,40 +36,46 @@ export class MessageService {
         });
     }
 
-    public getConversations(skypeAccount:SkypeAccount,callback:(convos:IConversation[]) => void) {
+    public getConversations(skypeAccount:SkypeAccount, callback:(convos:any) => void) {
 
         this.requestWithJar.get(Consts.SKYPEWEB_HTTPS + skypeAccount.messagesHost + '/v1/users/ME/conversations/', {
             headers: {
                 'RegistrationToken': skypeAccount.registrationTokenParams.raw
             },
             qs: {
-                'pageSize': 100,
+                'pageSize': 10,
                 'targetType': "Passport|Skype|Lync|Thread|PSTN|Agent",
                 "view": "msnp24Equivalent"
             }
         }, (error:any, response:http.IncomingMessage, body:any) => {
             if (!error && response.statusCode === 200) {
                 let json = JSON.parse(body);
+                callback(json.conversations);
+            } else {
+                Utils.throwError('Failed to send message.' +
+                    '.\n Error code: ' + response.statusCode +
+                    '.\n Error: ' + error +
+                    '.\n Body: ' + body
+                );
+            }
+        });
+    }
 
-                let convos:IConversation[] = [];
-
-                for(let i=0;i < json.conversations.length;i++) {
-                    let convo = json.conversations[i];
-
-                    if(convo.threadProperties) {
-                        convos[convos.length] = {
-                            name: convo.threadProperties.topic,
-                            id: convo.id
-                        }
-                    }
-                    else {
-                        convos[convos.length] = {
-                            id: convo.id
-                        }
-                    }
-                }
-
-                callback(convos);
+    public fetchHistory(skypeAccount:SkypeAccount, conversationId:string, callback:(messages:any) => void) {
+        this.requestWithJar.get(Consts.SKYPEWEB_HTTPS + skypeAccount.messagesHost + '/v1/users/ME/conversations/' + conversationId + '/messages', {
+            headers: {
+                'RegistrationToken': skypeAccount.registrationTokenParams.raw
+            },
+            qs: {
+                'startTime': 0,
+                 'pageSize': 51,
+                 'view': 'msnp24Equivalent|supportsMessageProperties',
+                 'targetType': 'Passport|Skype|Lync|Thread|PSTN',
+            }
+        }, (error:any, response:http.IncomingMessage, body:any) => {
+            if (!error && response.statusCode === 200) {
+              let json = JSON.parse(body);
+              callback(json.messages);
             } else {
                 Utils.throwError('Failed to send message.' +
                     '.\n Error code: ' + response.statusCode +

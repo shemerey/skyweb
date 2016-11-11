@@ -1,7 +1,7 @@
 "use strict";
-var skype_account_1 = require('./skype_account');
-var contacts_service_1 = require('./contacts_service');
-var request = require('request');
+var skype_account_1 = require("./skype_account");
+var contacts_service_1 = require("./contacts_service");
+var request = require("request");
 var login_1 = require("./login");
 var poll_1 = require("./polling/poll");
 var message_service_1 = require("./message_service");
@@ -35,6 +35,15 @@ var Skyweb = (function () {
             });
             return skypeAccount;
         });
+    };
+    Skyweb.prototype.getThreadInfo = function (threadID, callback) {
+        this.messageService.getThreadInfo(this.skypeAccount, threadID, callback);
+    };
+    Skyweb.prototype.getConversations = function (callback) {
+        this.messageService.getConversations(this.skypeAccount, callback);
+    };
+    Skyweb.prototype.fetchHistory = function (conversationId, callback) {
+        this.messageService.fetchHistory(this.skypeAccount, conversationId, callback);
     };
     Skyweb.prototype.sendMessage = function (conversationId, message, messagetype, contenttype) {
         this.messageService.sendMessage(this.skypeAccount, conversationId, message, messagetype, contenttype);
