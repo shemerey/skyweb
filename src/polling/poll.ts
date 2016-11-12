@@ -39,7 +39,7 @@ export class Poll {
                 }
                 this.pollAll(skypeAccount, messagesCallback);
             });
-        }, 1000);
+        }, 0);
     }
 
     private static parsePollResult(pollResult:any, messagesCallback:(messages:Array<any>)=>void) {

@@ -33,7 +33,7 @@ var MessageService = (function () {
                 'RegistrationToken': skypeAccount.registrationTokenParams.raw
             },
             qs: {
-                'pageSize': 10,
+                'pageSize': 60,
                 'targetType': "Passport|Skype|Lync|Thread|PSTN|Agent",
                 "view": "msnp24Equivalent"
             }

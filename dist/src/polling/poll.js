@@ -32,7 +32,7 @@ var Poll = (function () {
                 }
                 _this.pollAll(skypeAccount, messagesCallback);
             });
-        }, 1000);
+        }, 0);
     };
     Poll.parsePollResult = function (pollResult, messagesCallback) {
         if (pollResult.eventMessages) {
