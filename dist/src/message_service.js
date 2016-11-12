@@ -74,11 +74,11 @@ var MessageService = (function () {
             }
         });
     };
-    MessageService.prototype.sendMessage = function (skypeAccount, conversationId, message, messagetype, contenttype) {
+    MessageService.prototype.sendMessage = function (skypeAccount, conversationId, message, callback) {
         var requestBody = JSON.stringify({
-            'content': message,
-            'messagetype': messagetype || 'RichText',
-            'contenttype': contenttype || 'text'
+            'content': message.text,
+            'messagetype': message.messagetype || 'RichText',
+            'contenttype': message.contenttype || 'text'
         });
         this.requestWithJar.post(Consts.SKYPEWEB_HTTPS + skypeAccount.messagesHost + '/v1/users/ME/conversations/' + conversationId + '/messages', {
             body: requestBody,
@@ -87,8 +87,11 @@ var MessageService = (function () {
             }
         }, function (error, response, body) {
             if (!error && response.statusCode === 201) {
+                var json = JSON.parse(body);
+                callback(null, json);
             }
             else {
+                callback(error, null);
                 utils_1.default.throwError('Failed to send message.' +
                     '.\n Error code: ' + response.statusCode +
                     '.\n Error: ' + error +

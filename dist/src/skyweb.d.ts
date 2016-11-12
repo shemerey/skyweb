@@ -18,7 +18,7 @@ export declare class Skyweb {
     getThreadInfo(threadID: string, callback: (thread: Object) => void): void;
     getConversations(callback: (convos: Array<any>) => void): void;
     fetchHistory(conversationId: string, callback: (messages: Array<any>) => void): void;
-    sendMessage(conversationId: string, message: string, messagetype?: string, contenttype?: string): void;
+    sendMessage(conversationId: string, message: any, callback: (err: any, data: any) => void): void;
     setStatus(status: Status): void;
     acceptAuthRequest(username: any): void;
     declineAuthRequest(username: any): void;

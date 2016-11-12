@@ -68,8 +68,8 @@ export class Skyweb {
     this.messageService.fetchHistory(this.skypeAccount, conversationId, callback);
   }
 
-  sendMessage(conversationId:string, message:string, messagetype?:string, contenttype?:string) {
-    this.messageService.sendMessage(this.skypeAccount, conversationId, message, messagetype, contenttype);
+  sendMessage(conversationId:string, message:any, callback:(err:any, data:any) => void) {
+    this.messageService.sendMessage(this.skypeAccount, conversationId, message, callback);
   }
 
   setStatus(status:Status) {
