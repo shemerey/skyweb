@@ -43,7 +43,7 @@ export class MessageService {
                 'RegistrationToken': skypeAccount.registrationTokenParams.raw
             },
             qs: {
-                'pageSize': 60,
+                'pageSize': 20,
                 'targetType': "Passport|Skype|Lync|Thread|PSTN|Agent",
                 "view": "msnp24Equivalent"
             }
